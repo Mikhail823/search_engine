@@ -22,4 +22,7 @@ config:
     - url: https://dimonvideo.ru
       name: Библиотека
 
+  logging:
+    level:
+      com.popov: debug
 
