@@ -21,13 +21,4 @@ class ParseUrlTest {
         ParseUrl parseUrl = new ParseUrl("https://www.playback.ru", true);
         assertEquals("", parseUrl.compute());
     }
-
-    @Test
-    void compute() throws IOException, InterruptedException {
-        Document document = Jsoup.parse(url);
-    }
-
-    @Test
-    void getDocumentByUrl() {
-    }
 }

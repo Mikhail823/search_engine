@@ -17,17 +17,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@DataJdbcTest
+@SpringBootTest(properties = "spring.main.lazy-initialization=true")
 class PageRepoServiceImplTest {
     @Autowired
     private PageRepository repository;
-    @Autowired
-    private TestEntityManager entityManager;
 
     private Page p1, p2;
     @BeforeEach
@@ -43,7 +43,7 @@ class PageRepoServiceImplTest {
         p2.setId(2);
         p2.setCode(200);
         p2.setPath("/rukk.html");
-        p2.setContent("<html><title>Hellow Word!! Puss</title></html>");
+        p2.setContent("<html><title>Hellow Word!! Russia and Word!!</title></html>");
 
         repository.saveAll(List.of(p1, p2));
     }
@@ -56,24 +56,33 @@ class PageRepoServiceImplTest {
 
     @Test
     void getPage() {
-        assertEquals(repository.findByPath("/rukk.html"), "/rukk.html");
+        repository.findByPath("/rukk.html");
     }
 
     @Test
     void save() {
+        Page page = new Page();
+        page.setId(1);
+        page.setPath("/trt.html");
+        page.setCode(200);
+        page.setContent("<html><title>Food</title></html>");
+        repository.save(page);
 
     }
 
     @Test
     void findPageById() {
+        repository.findById(1);
+
     }
 
     @Test
     void deletePage() {
+        repository.delete(p1);
     }
 
     @Test
     void testFindAll(){
-        assertEquals(List.of(p1, p2), repository.findAll());
+       repository.findAll();
     }
 }
